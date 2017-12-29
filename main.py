@@ -28,7 +28,7 @@ def pixel(x, y, r, g, b, a=255):
             send('PX %d %d %02x%02x%02x%02x\n' % (x, y, r, g, b, a))
             #print('PX %d %d %02x%02x%02x%02x\n' % (x, y, r, g, b, a))
     except:
-        # Serverrestart doesn't work right now
+        # Socket Connection restart doesn't work right now
         print("new socket")
         sock.shutdown(1)
         sock.close()
