@@ -47,18 +47,31 @@ def clamp(n, minn, maxn):
 
 class Hexsnake():
     def __init__(self):
+        # Startparameters for the snake
+
         self.x = 400
         self.y = 200
         self.direction = 0
         self.dist = 18
         self.width = 12
+
+        # Color is randomized
+
         self.red = random.random()*255
         self.green  = random.random()*255
         self.blue  = random.random()*255
 
     def run(self):
+        # Instead of using math functions, the movement offset for each update
+        # is stored in a lookup table (array)
+
         offsx = [0, 2,  2, 0, -2, -2]
         offsy = [3, 1, -1, -3, -1, 1]
+
+        # the change of the movement direction is achieved by moving the index
+        # of the lookup table by a maximum of +- one position
+        #
+        # circle buffer overflow is achived using the modulu (%) method
 
         self.direction = (self.direction + random.randint(-1, 1)) % len(offsx)
 
@@ -68,6 +81,9 @@ class Hexsnake():
 
             self.x = clamp(self.x, 20, 750)
             self.y = clamp(self.y, 20, 550)
+
+            # to achieve a 3D effect, two rectangles (resulting in a square) are drawn
+            # the upper one with normal color, the lower one with half the brightness
 
             rect(self.x, self.y, self.width, self.width/2, self.red, self.green, self.blue)
             rect(self.x, self.y+self.width/2, self.width, self.width/2, self.red/2, self.green/2, self.blue/2)
